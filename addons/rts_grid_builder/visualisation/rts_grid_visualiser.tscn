@@ -1,0 +1,15 @@
+[gd_scene format=3 uid="uid://c0n60hopanyx3"]
+
+[ext_resource type="Script" uid="uid://dk7lir25p8np2" path="res://addons/rts_grid_builder/visualisation/scripts/RTS_grid_visualiser.gd" id="1_4qm46"]
+[ext_resource type="Script" uid="uid://d0iixe4y080l6" path="res://addons/rts_grid_builder/visualisation/scripts/RTS_grid_brush_visualiser.gd" id="3_4qm46"]
+[ext_resource type="Script" uid="uid://d0t71diyx00y" path="res://addons/rts_grid_builder/visualisation/scripts/RTS_grid_hover_visualiser.gd" id="3_ypgrl"]
+
+[node name="RTS_GridVisualiser" type="Node2D" unique_id=943363530]
+script = ExtResource("1_4qm46")
+
+[node name="RTS_HoverVisualiser" type="Node2D" parent="." unique_id=1356570220]
+script = ExtResource("3_ypgrl")
+metadata/_custom_type_script = "uid://d0t71diyx00y"
+
+[node name="RTS_PaintVisualiser" type="Node2D" parent="." unique_id=641881868]
+script = ExtResource("3_4qm46")
