@@ -18,7 +18,6 @@ general/main_scene="uid://dafo5ju4wo1a0"
 config/name="SequencingTest"
 run/main_scene="uid://cmqhjk4sd4qvj"
 config/features=PackedStringArray("4.7", "Forward Plus")
-config/icon="res://icon.svg"
 
 [display]
 
