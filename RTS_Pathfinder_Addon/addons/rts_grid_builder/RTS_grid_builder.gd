@@ -137,7 +137,7 @@ func _forward_canvas_gui_input(event: InputEvent) -> bool:
 	
 	if not active_grid.bounds.has_point(local_pos): 
 		active_visualiser.hovered_cell = GridData.INVALID_CELL
-		return false
+		return brush_mode != Brush_Mode.NONE
 	
 	var cell = active_grid.world_to_grid(local_pos)
 	
