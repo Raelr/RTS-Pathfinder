@@ -55,6 +55,19 @@ library = env.SharedLibrary(target=lib_name, source=sources)
 env.Tool('compilation_db')
 env.Alias('compiledb', env.CompilationDatabase('compile_commands.json'))
 
+if "package" in COMMAND_LINE_TARGETS:
+    target_platform = ARGUMENTS.get("platform", "linux")
+    archive_name = f"rts_pathfinder_release"
+    print(f"Packaging {ADDON_DIR} into {archive_name}.zip...")
+    _ = shutil.make_archive(
+        base_name=archive_name,
+        format="zip",
+        root_dir=ROOT_DIR,
+        base_dir="rts_pathfinder"
+    )
+    print("Packaging complete!")
+    sys.exit(0)
+
 env.Default(library)
 
 env.AddPostAction(library, sync_to_project)

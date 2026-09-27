@@ -1,0 +1,62 @@
+name: Build and Package RTS Pathfinder
+
+on:
+  push:
+    branches: [ "main" ]
+    tags: [ "v*" ] # e.g., v1.0.0
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  # PHASE 1: Build binaries in parallel (Runs on EVERY push and PR)
+  build:
+    strategy:
+      matrix:
+        include:
+          - os: ubuntu-latest
+            platform: linux
+          - os: windows-latest
+            platform: windows
+          - os: macos-latest
+            platform: macos
+
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version-file: '.python-version'
+
+      - run: pip install -r requirements.txt
+      - run: scons target=template_release platform=${{ matrix.platform }}
+
+      - name: Upload Binaries
+        uses: actions/upload-artifact@v4
+        with:
+          name: bin-${{ matrix.platform }}
+          path: addons/rts_pathfinder/bin/
+          retention-days: 1
+  package:
+    needs: build
+    if: startsWith(github.ref, 'refs/tags/v')
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/download-artifact@v4
+        with:
+          pattern: bin-*
+          path: addons/rts_pathfinder/bin/
+          merge-multiple: true
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version-file: '.python-version'
+
+      - run: pip install -r requirements.txt
+      - run: scons package
+
+      - name: Upload Release Asset
+        uses: softprops/action-gh-release@v2
+        with:
+          files: rts_pathfinder_release.zip
