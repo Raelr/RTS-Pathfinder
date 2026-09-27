@@ -12,7 +12,6 @@ var rects: Array[Rect2]
 func paint_unwalkable_cells(target_cells: Array[Vector2i], cell_size: float):
 	for cell in target_cells:
 		add_unwalkable_cell(cell, cell_size)
-	print("PAINTING UNWALKABLE CELLS")
 	redraw(cell_size)
 
 func paint_cell(cell_location: Vector2i, cell_size: float, mode: RTSGridBuilder.Brush_Mode):
@@ -21,12 +20,12 @@ func paint_cell(cell_location: Vector2i, cell_size: float, mode: RTSGridBuilder.
 	redraw(cell_size)
 
 func add_unwalkable_cell(cell_location: Vector2i, cell_size: float):
-	if cell_location == GridData.INVALID_CELL or unwalkable_cells.has(cell_location): return
+	if cell_location == Vector2i(-1,-1) or unwalkable_cells.has(cell_location): return
 	var rects_idx = clamp(rects.size()-1, 0, rects.size())
 	unwalkable_cells[cell_location] = rects_idx
 
 func clear_unwalkable_cell(cell_location: Vector2i, cell_size: float):
-	if cell_location == GridData.INVALID_CELL or not unwalkable_cells.has(cell_location): return
+	if cell_location == Vector2i(-1,-1) or not unwalkable_cells.has(cell_location): return
 	unwalkable_cells.erase(cell_location)
 
 func redraw(cell_size: float):

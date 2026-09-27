@@ -5,10 +5,10 @@ extends VBoxContainer
 signal on_refreshed
 signal on_brush_mode_selected(mode: RTSGridBuilder.Brush_Mode)
 
-func _init(grid: GridData =  null, mode: RTSGridBuilder.Brush_Mode = RTSGridBuilder.Brush_Mode.NONE):
+func _init(grid: RTSGridData =  null, mode: RTSGridBuilder.Brush_Mode = RTSGridBuilder.Brush_Mode.NONE):
 	build(mode, grid)
 
-func build(mode: RTSGridBuilder.Brush_Mode, grid: GridData) -> void:
+func build(mode: RTSGridBuilder.Brush_Mode, grid: RTSGridData) -> void:
 	size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	
 	# Header Container

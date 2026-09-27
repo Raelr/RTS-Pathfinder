@@ -5,7 +5,7 @@ class_name RTSGridBuilder
 var dock: RTS_GridBuilderDockContainer = null
 enum Brush_Mode { NONE = 0, UNWALKABLE = 1, CLEAR = 2}
 var active_visualiser: GridVisualiser = null
-var active_grid: GridData = null
+var active_grid: Resource = null
 var brush_mode: int = Brush_Mode.NONE
 
 func _enter_tree() -> void:
@@ -36,7 +36,7 @@ func _refresh_ui() -> void:
 func _create_new_grid(file: String) -> void:
 	var file_name: String = file
 
-	var new_grid = GridData.new()
+	var new_grid = RTSGridData.new()
 
 	var grid_exists = FileAccess.file_exists(file_name)
 	ResourceSaver.save(new_grid, file_name)
@@ -60,7 +60,7 @@ func _save_grid(file: String) -> void:
 	ResourceSaver.save(active_grid, file_name)
 
 func _load_grid(file: String) -> void:
-	var loaded_grid: GridData = load(file)
+	var loaded_grid: RTSGridData = load(file)
 
 	if not loaded_grid:
 		printerr("Failed to load grid: ", file)
@@ -72,18 +72,18 @@ func _load_grid(file: String) -> void:
 	active_grid = loaded_grid
 	_on_grid_loaded(active_visualiser, loaded_grid)
 
-func _on_grid_loaded(visualiser: GridVisualiser, gridData: GridData):
-	if not active_visualiser: return
+func _on_grid_loaded(visualiser: GridVisualiser, gridData: RTSGridData):
+	if not active_visualiser or not gridData or not gridData.grid_dimensions: return
 
 	var obstacles: Array[Vector2i]
 	for y in gridData.grid_dimensions.y:
 		for x in gridData.grid_dimensions.x:
 			var idx = y * gridData.grid_dimensions.y + x
-			if gridData.cells[idx] == 1:
+			if !gridData.is_cell_walkable(Vector2i(x,y)):
 				obstacles.append(Vector2i(x, y))
 	visualiser.set_cells_unwalkable(obstacles, gridData.cell_size)
 
-func _create_visualiser(grid: GridData) -> void:
+func _create_visualiser(grid: RTSGridData) -> void:
 	var scene_root = EditorInterface.get_edited_scene_root()
 
 	var visualiser : GridVisualiser = load("res://addons/rts_pathfinder/visualisation/rts_grid_visualiser.tscn").instantiate()
@@ -135,15 +135,14 @@ func _forward_canvas_gui_input(event: InputEvent) -> bool:
 
 	var local_pos = active_visualiser.get_local_mouse_position()
 
-	if not active_grid.bounds.has_point(local_pos):
-		active_visualiser.hovered_cell = GridData.INVALID_CELL
+	if not active_grid.is_in_bounds(local_pos):
+		active_visualiser.hovered_cell = Vector2i(-1,-1)
 		return brush_mode != Brush_Mode.NONE
-
 	var cell = active_grid.world_to_grid(local_pos)
 
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and brush_mode != Brush_Mode.NONE:
-		var index = cell.y * active_grid.grid_dimensions.x + cell.x
-		active_grid.cells[index] = 0 if brush_mode == 2 else 1
+		if (brush_mode == Brush_Mode.CLEAR): active_grid.set_cell_walkable(cell, true)
+		if (brush_mode == Brush_Mode.UNWALKABLE): active_grid.set_cell_walkable(cell, false)
 		active_visualiser.on_cell_clicked(cell, brush_mode)
 
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_RIGHT and brush_mode != Brush_Mode.NONE:

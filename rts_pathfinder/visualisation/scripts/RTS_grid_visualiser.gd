@@ -2,7 +2,7 @@
 class_name GridVisualiser
 extends Node2D
 
-@export var grid: GridData
+@export var grid: Resource
 
 @onready var hover_visualiser: HoverVisualiser = $RTS_HoverVisualiser
 @onready var paint_visualiser: PaintVisualiser = $RTS_PaintVisualiser
@@ -23,6 +23,7 @@ func set_cells_unwalkable(cells: Array[Vector2i], cell_size: float) -> void:
 	
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	if not grid: return
 	grid.changed.connect(redraw_grid)
 	redraw_grid()
 

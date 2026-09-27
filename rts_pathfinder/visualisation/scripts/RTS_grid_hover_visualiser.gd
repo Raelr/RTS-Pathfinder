@@ -15,5 +15,5 @@ var cell_size: float = 1.0:
 		queue_redraw()
 
 func _draw() -> void:
-	if (hovered_cell != GridData.INVALID_CELL):
+	if (hovered_cell != Vector2i(-1,-1)):
 		draw_rect(Rect2(Vector2(hovered_cell * cell_size), Vector2(cell_size, cell_size)), Color.GREEN, false)

@@ -13,10 +13,10 @@ signal on_refreshed
 # Brush Container signals
 signal on_brush_selected(mode: RTSGridBuilder.Brush_Mode)
 
-func _init(grid: GridData = null, brush_mode: RTSGridBuilder.Brush_Mode = RTSGridBuilder.Brush_Mode.NONE):
+func _init(grid: RTSGridData = null, brush_mode: RTSGridBuilder.Brush_Mode = RTSGridBuilder.Brush_Mode.NONE):
 	build(grid, brush_mode)
 
-func build(grid: GridData, brush_mode: RTSGridBuilder.Brush_Mode) -> void:
+func build(grid: RTSGridData, brush_mode: RTSGridBuilder.Brush_Mode) -> void:
 	var body: HBoxContainer = HBoxContainer.new()
 	
 	const margin = RTSGridDockTheme.MARGIN
@@ -47,7 +47,7 @@ func build(grid: GridData, brush_mode: RTSGridBuilder.Brush_Mode) -> void:
 	body.add_child(right_side_body)
 	add_child(body)
 
-func refresh(grid: GridData = null, brush_mode: RTSGridBuilder.Brush_Mode = RTSGridBuilder.Brush_Mode.NONE) -> void:
+func refresh(grid: RTSGridData = null, brush_mode: RTSGridBuilder.Brush_Mode = RTSGridBuilder.Brush_Mode.NONE) -> void:
 	for child in get_children():
 		child.queue_free()
 	build(grid, brush_mode)

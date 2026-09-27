@@ -2,10 +2,10 @@
 class_name RTS_GridBuilderDockSelectedGridContainer
 extends HBoxContainer
 
-func _init(grid: GridData = null) -> void:
+func _init(grid: RTSGridData = null) -> void:
 	build(grid)
 
-func build(grid: GridData = null) -> void:
+func build(grid: RTSGridData = null) -> void:
 	size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	
 	var label: Label = Label.new()

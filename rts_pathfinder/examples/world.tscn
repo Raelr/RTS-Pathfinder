@@ -1,8 +1,8 @@
 [gd_scene format=3 uid="uid://cmqhjk4sd4qvj"]
 
-[ext_resource type="PackedScene" uid="uid://c0n60hopanyx3" path="res://addons/rts_pathfinder/visualisation/rts_grid_visualiser.tscn" id="1_tsx88"]
-[ext_resource type="Resource" uid="uid://bnig66l1fnft3" path="res://addons/rts_pathfinder/examples/resources/test.tres" id="2_3qx1c"]
-[ext_resource type="Resource" uid="uid://41uekpugeupg" path="res://addons/rts_pathfinder/examples/resources/test2.tres" id="3_7by5u"]
+[ext_resource type="PackedScene" uid="uid://c0n60hopanyx3" path="res://addons/rts_pathfinder/visualisation/rts_grid_visualiser.tscn" id="1_v3kii"]
+[ext_resource type="RTSGridData" uid="uid://btxfu5bjpj0rs" path="res://addons/rts_pathfinder/examples/resources/test_grid.tres" id="3_r4x1r"]
+[ext_resource type="RTSGridData" uid="uid://cbvx6paauet08" path="res://addons/rts_pathfinder/examples/resources/test_grid_2.tres" id="4_xqwsy"]
 
 [node name="World" type="Node2D" unique_id=1658342757]
 
@@ -16,9 +16,9 @@ limit_right = 1000
 limit_bottom = -1000
 editor_draw_limits = true
 
-[node name="RTS_GridVisualiser" parent="." unique_id=943363530 instance=ExtResource("1_tsx88")]
-grid = ExtResource("2_3qx1c")
+[node name="RTS_GridVisualiser" parent="." unique_id=943363530 instance=ExtResource("1_v3kii")]
+grid = ExtResource("3_r4x1r")
 
-[node name="@Node2D@23633" parent="." unique_id=1388547497 instance=ExtResource("1_tsx88")]
-position = Vector2(33.4, 0)
-grid = ExtResource("3_7by5u")
+[node name="@Node2D@25833" parent="." unique_id=1923191512 instance=ExtResource("1_v3kii")]
+position = Vector2(33.21, 0)
+grid = ExtResource("4_xqwsy")
