@@ -315,3 +315,12 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+# SCons / GDExtension build artifacts
+*.os
+*.o
+*.so
+*.dll
+*.dylib
+.sconsign.dblite
+**.os

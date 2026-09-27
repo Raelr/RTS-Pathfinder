@@ -1,7 +1,9 @@
 #include "register_types.h"
+#include "rts_grid_data.h"
 #include <gdextension_interface.h>
 #include <godot_cpp/core/defs.hpp>
 #include <godot_cpp/godot.hpp>
+
 
 using namespace godot;
 
@@ -10,7 +12,7 @@ void initialize_rts_pathfinder_module(ModuleInitializationLevel p_level) {
         return;
     }
 
-    // ClassDB::register_class<GridData>(); // We will uncomment this later
+    ClassDB::register_class<RTSGridData>();
 }
 
 void uninitialize_rts_pathfinder_module(ModuleInitializationLevel p_level) {
