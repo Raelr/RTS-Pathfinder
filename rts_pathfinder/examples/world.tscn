@@ -1,8 +1,8 @@
 [gd_scene format=3 uid="uid://cmqhjk4sd4qvj"]
 
-[ext_resource type="PackedScene" uid="uid://c0n60hopanyx3" path="res://addons/rts_grid_builder/visualisation/rts_grid_visualiser.tscn" id="1_tsx88"]
-[ext_resource type="Resource" uid="uid://bnig66l1fnft3" path="res://addons/rts_grid_builder/examples/resources/test.tres" id="2_3qx1c"]
-[ext_resource type="Resource" uid="uid://41uekpugeupg" path="res://addons/rts_grid_builder/examples/resources/test2.tres" id="3_7by5u"]
+[ext_resource type="PackedScene" uid="uid://c0n60hopanyx3" path="res://addons/rts_pathfinder/visualisation/rts_grid_visualiser.tscn" id="1_tsx88"]
+[ext_resource type="Resource" uid="uid://bnig66l1fnft3" path="res://addons/rts_pathfinder/examples/resources/test.tres" id="2_3qx1c"]
+[ext_resource type="Resource" uid="uid://41uekpugeupg" path="res://addons/rts_pathfinder/examples/resources/test2.tres" id="3_7by5u"]
 
 [node name="World" type="Node2D" unique_id=1658342757]
 
