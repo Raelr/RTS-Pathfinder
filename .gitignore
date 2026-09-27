@@ -324,3 +324,5 @@ __marimo__/
 *.dylib
 .sconsign.dblite
 **.os
+
+rts_pathfinder
