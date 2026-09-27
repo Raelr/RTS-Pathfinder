@@ -7,6 +7,9 @@ on:
   pull_request:
     branches: [ "main" ]
 
+permissions:
+  contents: write
+
 jobs:
   # PHASE 1: Build binaries in parallel (Runs on EVERY push and PR)
   build:
