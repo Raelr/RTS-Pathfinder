@@ -13,7 +13,7 @@ ROOT_DIR = env.Dir("#").abspath
 VENDOR_DIR = os.path.join(ROOT_DIR, "vendor")
 GODOT_CPP_PATH = os.path.join(VENDOR_DIR, "godot-cpp")
 ADDON_DIR = os.path.join(ROOT_DIR, "rts_pathfinder")
-PROJECT_DIR = os.path.join(f"{ROOT_DIR}", "RTS_Pathfinder_Demo", "addons")
+PROJECT_DIR = os.path.join(f"{ROOT_DIR}", "rts_pathfinder_demo", "addons")
 
 def sync_to_project(target, source, env):
 
