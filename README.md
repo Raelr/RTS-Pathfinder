@@ -1,0 +1,1 @@
+[![Build and Package RTS Pathfinder](https://github.com/Raelr/RTS-Pathfinder/actions/workflows/build-and-package.yml/badge.svg?branch=main)](https://github.com/Raelr/RTS-Pathfinder/actions/workflows/build-and-package.yml)
