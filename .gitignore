@@ -325,4 +325,4 @@ __marimo__/
 .sconsign.dblite
 **.os
 
-RTS_Pathfinder_Demo/addons/rts_pathfinder
+rts_pathfinder_demo/addons/rts_pathfinder
