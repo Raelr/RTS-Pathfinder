@@ -4,6 +4,7 @@ from SCons.Script import *
 import os
 import subprocess
 import shutil
+import zipfile
 
 env = Environment()
 
@@ -56,15 +57,30 @@ env.Tool('compilation_db')
 env.Alias('compiledb', env.CompilationDatabase('compile_commands.json'))
 
 if "package" in COMMAND_LINE_TARGETS:
-    target_platform = ARGUMENTS.get("platform", "linux")
-    archive_name = f"rts_pathfinder_release"
-    print(f"Packaging {ADDON_DIR} into {archive_name}.zip...")
-    _ = shutil.make_archive(
-        base_name=archive_name,
-        format="zip",
-        root_dir=ROOT_DIR,
-        base_dir="rts_pathfinder"
-    )
+    archive_name = "rts_pathfinder_release"
+    print(f"Packaging addon into {archive_name}.zip...")
+
+    source_dir = os.path.join(ROOT_DIR, "rts_pathfinder")
+    zip_filename = f"{archive_name}.zip"
+
+    ignored_bin_extensions = (".exp", ".lib", ".pdb", ".ilk", ".obj")
+
+    with zipfile.ZipFile(zip_filename, 'w', zipfile.ZIP_DEFLATED) as zipf:
+        for root, dirs, files in os.walk(source_dir):
+            for file in files:
+
+                if "bin" in root.split(os.sep) and file.endswith(ignored_bin_extensions):
+                    print(f"  Skipping build artifact: {file}")
+                    continue
+
+                file_path = os.path.join(root, file)
+
+                rel_path = os.path.relpath(file_path, ROOT_DIR)
+                arcname = os.path.join("addons", rel_path)
+
+                zipf.write(file_path, arcname=arcname)
+                print(f"  Added to archive: {arcname}")
+
     print("Packaging complete!")
     sys.exit(0)
 
