@@ -6,12 +6,19 @@ extends Node2D
 
 @onready var hover_visualiser: HoverVisualiser = $RTS_HoverVisualiser
 @onready var paint_visualiser: PaintVisualiser = $RTS_PaintVisualiser
+@onready var path_visualiser: PathVisualiser = $RTS_PathVisualiser
 
 var hovered_cell: Vector2i = Vector2i(-1,-1):
 	set(value):
 		if not hover_visualiser: return
 		hovered_cell = value
 		hover_visualiser.hovered_cell = value
+
+var path: PackedVector2Array = PackedVector2Array():
+	set(value):
+		if not path_visualiser or path == value: return
+		path = value
+		path_visualiser.active_path = path
 
 func on_cell_clicked(cell: Vector2i, brush_mode: RTSGridBuilder.Brush_Mode) -> void:
 	if not paint_visualiser or brush_mode == RTSGridBuilder.Brush_Mode.NONE: return

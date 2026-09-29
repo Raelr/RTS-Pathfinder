@@ -50,8 +50,10 @@ namespace godot
 
             ClassDB::bind_method(D_METHOD("is_in_bounds", "world_coords"), &RTSGridData::is_in_bounds);
             ClassDB::bind_method(D_METHOD("world_to_grid", "coordinate"), &RTSGridData::world_to_grid);
+            ClassDB::bind_method(D_METHOD("index_to_cell", "index"), &RTSGridData::index_to_cell);
             ClassDB::bind_method(D_METHOD("is_cell_walkable", "coordinate"), &RTSGridData::is_cell_walkable);
             ClassDB::bind_method(D_METHOD("set_cell_walkable", "coordinate", "walkable"), &RTSGridData::set_cell_walkable);
+
     }
 
     void RTSGridData::set_grid_buffer(const godot::PackedByteArray& buffer)
@@ -179,7 +181,7 @@ namespace godot
         return coordinate.y * grid_dimensions.x + coordinate.x;
     }
 
-    int64_t RTSGridData::get_cell_index(Vector2i coordinate)
+    int32_t RTSGridData::get_cell_index(Vector2i coordinate)
     {
         if (!is_in_bounds(coordinate)) return INVALID_INDEX;
 
@@ -188,9 +190,16 @@ namespace godot
         return coord_to_index(grid_coords);
     }
 
+    Vector2i RTSGridData::index_to_cell(int32_t index)
+    {
+        if (index < 0 || index >= grid_dimensions.x * grid_dimensions.y) return INVALID_CELL;
+
+        return Vector2i(index % grid_dimensions.x, index / grid_dimensions.x);
+    }
+
     bool RTSGridData::is_cell_walkable(Vector2i coordinate)
     {
-        int64_t index = coord_to_index(coordinate);
+        int32_t index = coord_to_index(coordinate);
 
         if (index == INVALID_INDEX) return false;
 
@@ -199,7 +208,7 @@ namespace godot
 
     void RTSGridData::set_cell_walkable(Vector2i coordinate, bool walkable)
     {
-        int64_t index = coord_to_index(coordinate);
+        int32_t index = coord_to_index(coordinate);
 
         if (index == INVALID_INDEX) return;
 

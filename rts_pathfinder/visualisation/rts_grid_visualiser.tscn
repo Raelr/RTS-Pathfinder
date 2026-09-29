@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://dk7lir25p8np2" path="res://addons/rts_pathfinder/visualisation/scripts/RTS_grid_visualiser.gd" id="1_4qm46"]
 [ext_resource type="Script" uid="uid://d0iixe4y080l6" path="res://addons/rts_pathfinder/visualisation/scripts/RTS_grid_brush_visualiser.gd" id="3_4qm46"]
 [ext_resource type="Script" uid="uid://d0t71diyx00y" path="res://addons/rts_pathfinder/visualisation/scripts/RTS_grid_hover_visualiser.gd" id="3_ypgrl"]
+[ext_resource type="Script" uid="uid://cmty3rtrq3cud" path="res://addons/rts_pathfinder/visualisation/scripts/RTS_grid_path_visualiser.gd" id="4_23byk"]
 
 [node name="RTS_GridVisualiser" type="Node2D" unique_id=943363530]
 script = ExtResource("1_4qm46")
@@ -13,3 +14,7 @@ metadata/_custom_type_script = "uid://d0t71diyx00y"
 
 [node name="RTS_PaintVisualiser" type="Node2D" parent="." unique_id=641881868]
 script = ExtResource("3_4qm46")
+
+[node name="RTS_PathVisualiser" type="Node2D" parent="." unique_id=371329961]
+script = ExtResource("4_23byk")
+metadata/_custom_type_script = "uid://cmty3rtrq3cud"

@@ -8,9 +8,19 @@ var active_visualiser: GridVisualiser = null
 var active_grid: Resource = null
 var brush_mode: int = Brush_Mode.NONE
 
+# pathfinding
+var pathfinder_manager: RTSPathfinderManager = null
+var active_source: Vector2i = Vector2i(-1,-1)
+
+# Throttling
+var last_requested_cell: Vector2i = Vector2i(-1,-1)
+var time_since_last_request: float = 0.0
+const THROTTLE_INTERVAL: float = 0.04
+
 func _enter_tree() -> void:
 	initialise_ui()
 	scene_changed.connect(_on_scene_changed)
+	pathfinder_manager = RTSPathfinderManager.new()
 
 func _exit_tree() -> void:
 	if not dock: return
@@ -148,7 +158,32 @@ func _forward_canvas_gui_input(event: InputEvent) -> bool:
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_RIGHT and brush_mode != Brush_Mode.NONE:
 		brush_mode = Brush_Mode.NONE
 		_refresh_ui()
+	
+	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_RIGHT and brush_mode == Brush_Mode.NONE and event.is_pressed():
+		if not cell == active_source:
+			active_source = cell
+			active_visualiser.path_visualiser.source_cell = cell
+		else:
+			active_visualiser.path_visualiser.source_cell = Vector2(-1,-1)
 
 	active_visualiser.hovered_cell = cell
 
 	return true
+
+func _process(delta: float) -> void:
+	if active_source == Vector2i(-1,-1) or not active_visualiser: return
+	
+	var target_cell = active_visualiser.hovered_cell
+	
+	if target_cell == last_requested_cell or target_cell == Vector2i(-1,-1): return
+	
+	time_since_last_request += delta
+	
+	if time_since_last_request >= THROTTLE_INTERVAL:
+		_request_path(target_cell)
+
+func _request_path(target: Vector2i) -> void:
+	time_since_last_request = 0.0
+	last_requested_cell = target
+	
+	pathfinder_manager.request_astar_path_async(active_source, target, active_grid, func(path): active_visualiser.path_visualiser.active_path = path)

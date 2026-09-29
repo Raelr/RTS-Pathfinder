@@ -1,5 +1,7 @@
 #include "register_types.h"
 #include "rts_grid_data.h"
+#include "rts_pathfinder_manager.h"
+#include "rts_pathfinder_astar.h"
 #include <gdextension_interface.h>
 #include <godot_cpp/core/defs.hpp>
 #include <godot_cpp/godot.hpp>
@@ -13,6 +15,7 @@ void initialize_rts_pathfinder_module(ModuleInitializationLevel p_level) {
     }
 
     ClassDB::register_class<RTSGridData>();
+    ClassDB::register_class<RTSPathfinderManager>();
 }
 
 void uninitialize_rts_pathfinder_module(ModuleInitializationLevel p_level) {

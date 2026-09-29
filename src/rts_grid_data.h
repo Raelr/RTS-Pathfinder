@@ -10,7 +10,7 @@ namespace godot
 {
     constexpr uint16_t MAX_CELLS_PER_DIMENSION = 1024;
     constexpr godot::Vector2i INVALID_CELL = godot::Vector2i(-1,-1);
-    constexpr uint64_t INVALID_INDEX = -1;
+    constexpr uint32_t INVALID_INDEX = -1;
     constexpr uint8_t DEFAULT_CELL = 1; // 0000 0001
 
     class RTSGridData: public Resource
@@ -40,13 +40,14 @@ namespace godot
             bool is_cell_walkable(Vector2i coordinate);
             void set_cell_walkable(Vector2i coordinate, bool walkable);
             godot::Vector2i world_to_grid(Vector2i world_coords);
+            int32_t get_cell_index(Vector2i coordinate);
+            Vector2i index_to_cell(int32_t index);
 
         private:
             void resize(godot::Vector2i new_dims);
             void resize_bounds(godot::Vector2i new_dims, float new_cell_size);
             bool is_coord_in_bounds(Vector2i coordinate);
             int64_t coord_to_index(Vector2i coordinate);
-            int64_t get_cell_index(Vector2i coordinate);
             bool dimensions_valid(godot::Vector2i dims);
             godot::PackedByteArray grid_buffer;
             godot::Vector2i grid_dimensions;

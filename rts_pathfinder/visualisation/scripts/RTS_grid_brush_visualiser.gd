@@ -37,4 +37,4 @@ func redraw(cell_size: float):
 
 func _draw() -> void:
 	for rect in rects:
-		draw_rect(rect, Color.RED, false)
+		draw_rect(rect, Color.RED, true)
